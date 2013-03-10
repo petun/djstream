@@ -16,3 +16,5 @@
 .track-list ul li .favorite {display: none;}
 .track-list ul li .favorite.already {display: inline;}
 .track-list ul li:hover .favorite {display: inline;}
+
+#footer {padding: 10px 0; border-top: 1px gray solid;}
