@@ -59,4 +59,21 @@ class UserFavorite extends AppModel {
 			'order' => ''
 		)
 	);
+
+	public function isUserFavorite($user_id,$track_id) {
+		$conditions = array('user_id'=>$user_id,'track_id'=>$track_id);
+		$el = $this->find('first',compact('conditions'));
+		if ($el) {
+			return $el['UserFavorite']['id'];
+		} else {
+			return false;
+		}
+	}
+
+	public function findUsers($user_id) {
+		$conditions = array('user_id'=>$user_id);
+		$fields = array('UserFavorite.id','track_id');
+		return $this->find('list',  compact('conditions','fields'));
+	}
+
 }

@@ -7,58 +7,113 @@ App::uses('AppController', 'Controller');
  */
 class TracksController extends AppController {
 
+	public $helpers = array('Ru');
 /**
  * index method
  *
  * @return void
  */
-	public function index() {
-		
-		
+	public function index() {			
 		$conditions = array();
 		$recursive = 0;
 		$limit = 30;		
+		$order = array('created'=>'DESC');
 		
 		
+		
+		// criterias
 		if (isset($this->request->query['source_id']) && is_array($this->request->query['source_id'])) {
 			$conditions['source_id'] = $this->request->query['source_id'];
-			
-			$ids = $this->request->query['source_id'];$this->request->query['source_id'] = array();
-			foreach ($ids as $id) {
-				$this->request->query['source_id'][] = (int)$id;
-			}
 		}
 		
 		if (isset($this->request->query['genre_id']) && is_array($this->request->query['genre_id'])) {
 			$conditions['genre_id'] = $this->request->query['genre_id'];
-			
-			$ids = $this->request->query['genre_id'];$this->request->query['genre_id'] = array();
-			
-			
-			foreach ($ids as $id) {
-				$this->request->query['genre_id'][] = (int)$id;
+		}
+
+		// fav criteria
+		$favorites = array();
+		if (isset($this->request->query['favorite']) && !empty($this->request->query['favorite'])) {
+			if ($this->Auth->user('id')) {
+				$favorites = $this->Track->UserFavorite->findUsers($this->Auth->user('id'));
+				$conditions['Track.id'] = $favorites;
 			}
 		}
+		$this->set('favorites',$favorites);
 		
+		// listened tracks
+		$listened = array();
+		if ($this->Auth->user('id')) {
+			$listened = $this->Track->TrackListen->findUsers($this->Auth->user('id'));			
+		}
+		$this->set(array('listened'=>$listened));
+
+
+		// from track - for ajax autoload
+		if (isset($this->request->query['from_track'])) {
+			$conditions['Track.id <'] = $this->request->query['from_track'];
+		}
 		
+				
 		
-		
-		/*if ($this->request->query['genre_id']) {
-			$conditions['genre_id'] = $this->request->query['genre_id'];
-		}*/
-		
-		
-		$criteria = compact('conditions','recursive','limit');
-		
-		
-		
+		$criteria = compact('conditions','recursive','limit','order');
+
+		$count =  $this->Track->find('count',array('conditions'=>$conditions,'recursive'=>-1));
+		$this->set('count', $count );
+
 		$this->set('tracks', $this->Track->find('all',$criteria));
 		
-		//
-		$sources = $this->Track->Source->find('list');
-		$genres = $this->Track->Genre->find('list');
 		
-		$this->set(compact('sources','genres'));
+	}
+	
+	public function set_status($id,$status) {
+		if (!$this->Track->exists($id)) {
+			throw new NotFoundException(__('Invalid track'));
+		}
+
+		$r = false;
+		
+		if ($status == 'listen') {
+			$data = array('track_id'=>$id);
+			if ($this->Auth->user('id')) {
+				$data['user_id'] = $this->Auth->user('id');
+			}
+			
+			CakeLog::info('Add listened track : '.print_r($data,true));
+			
+			$r = $this->Track->TrackListen->save($data);
+		} else if ($status == 'favorite') {
+			$exists = $this->Track->UserFavorite->isUserFavorite($this->Auth->user('id'),$id);
+			
+			if ($exists) {
+				CakeLog::info('Delete favorite track');
+				$this->Track->UserFavorite->delete($exists);				
+			} else {
+				$data = array('user_id'=>$this->Auth->user('id'),'track_id'=>$id);
+				CakeLog::info('Add favorite track : '.print_r($data,true));
+				$r = (bool)$this->Track->UserFavorite->save($data);				
+			}
+
+		}
+		
+		$this->set('r',$r);
+	}
+
+	public function download($id) {
+		if (!$this->Track->exists($id)) {
+			throw new NotFoundException(__('Invalid track'));
+		}
+
+		$track = $this->Track->read(null,$id);
+
+		// add to history
+		$data['track_id'] = $id;
+		if ($this->Auth->user('id')) {
+			$data['user_id'] = $this->Auth->user('id');
+		}
+		$this->Track->TrackDownload->save($data);
+
+		// redirect
+		$this->redirect($track['Track']['url']);
 	}
 
 /**

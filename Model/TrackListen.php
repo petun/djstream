@@ -73,4 +73,11 @@ class TrackListen extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	public function findUsers($user_id,$type = 'list',$fields = array('id','track_id'),$order = array('id'=>'DESC')) {
+		$conditions = array('user_id'=>$user_id);		
+		$recursive = -1;
+		$group = array('track_id');
+		return $this->find($type,compact('conditions','fields','order','recursive','group'));
+	}
 }

@@ -1,0 +1,3 @@
+ <img src='img/logo-big.png'  alt='' />
+        <script src="http://loginza.ru/js/widget.js" type="text/javascript"></script>
+        <iframe src="http://loginza.ru/api/widget?providers_set=vkontakte,facebook,twitter,odnoklassniki,mailru,google,yandex,livejournal&overlay=loginza&token_url=http%3A%2F%2F<?php echo SHORT_BASE_URL;?>%2Fusers%2Flogin%2F" style="width:100%;height: 161px;" scrolling="no" frameborder="no" allowTransparency="true"></iframe>    

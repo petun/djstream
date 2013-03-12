@@ -1,0 +1,76 @@
+/* login layout */
+body.login {background: #eee;}
+body.login #login {
+    background: #FAFAFA;
+width: 400px;
+margin: 150px auto;
+padding: 50px;
+border: 1px #CE6512 solid;
+border-radius: 10px;}
+
+
+/* main layout */
+.navbar-fixed-top, .navbar-fixed-bottom {position: fixed;}
+
+.mb5 {margin-bottom: 5px;}
+.fl-l {float: left;} .fl-r {float: right;}
+.main-wr {padding-top: 82px;}
+.navbar-inverse .navbar-inner {background: #eee; padding: 10px 0;}
+.progress {width: 600px; margin: 0; position: relative; cursor: pointer; height: 5px; /*position: absolute; top: 50px;*/}
+.progress .bar {position: absolute;}
+.progress .bar.loading {background-color: #D5FAFF;
+background-image: -webkit-linear-gradient(top,rgb(229, 246, 255),rgb(255, 163, 0));}
+
+.progress .bar {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}​
+
+
+#player .info {float: left; width: 600px; padding: 6px 0 0 0;}
+#player .info .title {/*color: #ddd; font-style: italic;*/
+width: 480px;
+white-space: nowrap;
+overflow: hidden;
+}
+#player .info .title a {font-weight: bold; color: black; font-size: 17px; font-style: normal; display: inline-block;
+max-width: 470px;}
+#player .info .name-duration {overflow:     hidden; }
+#player .info .duration {color: #7A7A7A; font-size: 11px;}
+
+.ctrls {float: left; margin-right: 10px; padding: 17px 0 0 0;}
+.ctrls a {height: 15px; display: inline-block; margin-right: 10px;}
+.ctrls .ctrl-play {background: url(../img/glyphicons_173_play.png) 0 0 no-repeat; width: 13px;}
+.ctrls .ctrl-play.paused {background: url(../img/glyphicons_174_pause.png) 0 0 no-repeat; width: 13px;}
+.ctrls .ctrl-prev {background: url(../img/glyphicons_172_rewind.png) 0 0 no-repeat; width: 19px;}
+.ctrls .ctrl-next {background: url(../img/glyphicons_176_forward.png) 0 0 no-repeat; width: 19px;}
+
+
+#header {border-bottom: 1px orange solid; margin-bottom: 25px;}
+#header ul {margin-bottom: 4px;}
+
+#sidebar {background: #FCFCFC;}
+#sidebar .menu {margin-bottom: 25px;}
+
+#main {margin-top: -17px;}
+#main .filter {padding-bottom: 10px; border-bottom: 1px orange solid;}
+
+
+.track-list ul li {margin-bottom: 5px; padding: 5px 2px; width: 100%; border-bottom: 1px #eee dashed;}
+.track-list ul li:hover,.track-list ul li.current {background: #eee;}
+
+.track-list ul li .track a.title {font-weight: bold;}
+.track-list ul li .track.listened a.title {font-weight: normal; color: #03799E;}
+
+.track-list ul li  .info,.track-list ul li  .info a {color: #D1D1D1;}
+.track-list ul li  .info a:hover {color: #08c;}
+.track-list ul li .favorite {display: none;}
+.track-list ul li .download {display: none;}
+.track-list ul li .favorite.already {display: inline;}
+.track-list ul li:hover .favorite,.track-list ul li.current .favorite,
+.track-list ul li:hover .download,.track-list ul li.current .download {display: inline;}
+
+#footer {padding: 10px 0; border-top: 1px gray solid;}

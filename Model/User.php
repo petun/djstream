@@ -82,7 +82,7 @@ class User extends AppModel {
  *
  * @var array
  */
-	public $belongsTo = array(
+	/*public $belongsTo = array(
 		'Message' => array(
 			'className' => 'Message',
 			'foreignKey' => 'message_id',
@@ -90,7 +90,7 @@ class User extends AppModel {
 			'fields' => '',
 			'order' => ''
 		)
-	);
+	);*/
 
 /**
  * hasMany associations

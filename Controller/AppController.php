@@ -32,4 +32,46 @@ App::uses('Controller', 'Controller');
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    
+    public $uses = array('Source','Genre');
+    
+     public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => '/',
+            'logoutRedirect' =>  '/',
+            'authorize' => 'Controller',
+            'authError' => '',            
+        )
+    );
+    
+    public function beforeFilter() {
+        
+        //$this->Auth->allow();
+        
+        
+        $this->Auth->authenticate  = array(            
+            'Openid'            
+        );
+        
+        // set tpl path to ajax folder
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';                        
+            $this->viewPath = $this->viewPath . DS . 'ajax' . DS;
+        }
+        
+        
+        // set vars in all pages
+        //
+        $sources = $this->Source->find('list');
+        $genres = $this->Genre->find('list');
+        
+        $this->set(compact('sources','genres'));
+    }
+    
+    public function isAuthorized() {
+        return true;    
+    }
+    
+    
 }

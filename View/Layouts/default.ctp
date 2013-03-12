@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <base href='<?=Router::url('/');?>' />
 	<?php echo $this->Html->charset(); ?>
 	<title>		
 		<?php echo $title_for_layout; ?>
@@ -20,7 +21,14 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+        
+        
+        
 	?>
+    
+    
+    <script src="//loginza.ru/js/widget.js" type="text/javascript"></script>
+    
 </head>
 <body>
 	
@@ -59,16 +67,16 @@
             <div class='row'>
                 <div class='span6'>
                     <ul class="nav nav-pills">
-                      <li><a href="#">О кроекте</a></li>
-                      <li><a href="#">Источники</a></li>
-                      <li><a href="#">Жанры</a></li>
+                      <li><? echo $this->Html->link('О проекте',array('controller'=>'pages','action'=>'display', 'about'));?></li>
+                     <!-- <li><a href="#">Источники</a></li>
+                      <li><a href="#">Жанры</a></li> -->
                     </ul>                
                 </div>
                 <div class='span6'>
                     <ul class="nav nav-pills pull-right">
-                      <li><a href="#">Избранное</a></li>
-                      <li><a href="#">Профиль</a></li>
-                      <li><a href="#">Выйти</a></li>
+                      <li><?=$this->Html->link('Избранное',array('controller'=>'tracks','action'=>'index','?'=>array('favorite'=>1) ));?></li>
+                      <!--<li><a href="#">Профиль</a></li> -->
+                      <li><? echo $this->Html->link('Выйти ('.AuthComponent::user('name').')',array('controller'=>'users','action'=>'logout'));?></li>
                     </ul>   
                 </div>            
             </div>
@@ -80,12 +88,12 @@
                     <ul class="nav nav-list menu">
                         <li class="nav-header">Источники</li>
                         <? foreach ($sources as $source_id => $source) {?>
-                        <li><?=$this->Html->link($source,array('controller'=>'sources','action'=>'view',$source_id));?></li>
+                        <li><?=$this->Html->link($source,array('controller'=>'tracks','action'=>'index','?'=>array('source_id[]'=>$source_id) ));?></li>
                         <?}?>
                         
                         <li class="nav-header">Жанры</li>
                          <? foreach ($genres as $genre_id => $genre) {?>
-                        <li><?=$this->Html->link($genre,array('controller'=>'genres','action'=>'view',$genre_id));?></li>
+                        <li><?=$this->Html->link($genre,array('controller'=>'tracks','action'=>'index','?'=>array('genre_id[]'=>$genre_id) ));?></li>
                         <?}?>
                         
                     </ul>
@@ -98,63 +106,13 @@
                 
                 </div>
                 
-                <div class='span9' id='main'>
-                    <h2>Треки</h2>                    
-                    
-                    
-                    <div class='row filter'>
-                        <?echo $this->Form->create('Track',array('type'=>'get'));?>
-                            <fieldset>
-                                <div class='span3'>
-                                    <?
-                                    
-                                    echo $this->Form->input('source_id',array('multiple'=>'checkbox','label'=>'Источники','selected'=> $this->request->query['source_id']));
-                                    
-                                   
-                                    ?>
-                                     
-                                    
-                                </div>
-                                <div class='span3'>
-                                    <?
-                                    echo $this->Form->input('genre_id',array('multiple'=>'checkbox','label'=>'Жанры','selected'=> $this->request->query['genre_id']));
-                                    ?>                                     
-                                </div>
-                                <div class='span3'>
-                                    <h4>Календарь</h4>
-                                
-                                </div>    
-                            </fieldset> 
-                            <button class="btn btn-small pull-right btn btn-warning" type="submit">Фильтровать</button>             
-                        </form>
-                    </div>
-                    
-                    <div class='row results'>
-                        <div class='span9'>
-                            <h2>Результаты поиска</h2>
-                            <p><small>Найдено 202761 треков. Источники - <a href=''>clubkings.ua</a>, <a href=''>clubbers.pl</a>, направления <a href=''>house</a>, <a href=''>electrohouse</a></small></p>
-                            
-                            <div class='track-list'>
-                                <ul class='unstyled'>
-                                    <?
-                                    
-                                    if ($tracks) {
-                                        foreach ($tracks as $track) {
-                                            echo $this->element('track',array('track'=>$track));
-                                        }
-                                    }
-                                    
-                                    ?>                                
-                                </ul>    
-                            
-                            
-                            </div>
-                            
-                        </div>
-                    
-                    
-                    </div>
                 
+                
+                
+                <div class='span9' id='main'>
+                    <h2><?=$title_for_layout;?></h2>                    
+                    
+                    <? echo $this->fetch('content'); ?>
                 </div>
             
             </div>                    
