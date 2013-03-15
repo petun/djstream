@@ -74,7 +74,7 @@ class Track extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'song' => array(
+		/*'song' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
@@ -83,7 +83,7 @@ class Track extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
+		),*/
 		'failed_attempts' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -166,5 +166,16 @@ class Track extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	public function getMaxId() {		
+		$limit = 1;
+		$order = array('id'=>'DESC');
+		$recursive = -1;
+		
+		
+		$item = $this->find('first',compact('order','limit','recursive'));		
+		
+		return $item['Track']['id'];
+	}
 
 }
