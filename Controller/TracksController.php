@@ -7,7 +7,7 @@ App::uses('AppController', 'Controller');
  */
 class TracksController extends AppController {
 
-	public $helpers = array('Ru');
+	public $helpers = array('Ru','Zippy');
 /**
  * index method
  *
@@ -19,7 +19,7 @@ class TracksController extends AppController {
 		$limit = 30;		
 		$order = array('created'=>'DESC');
 		
-		
+		$this->set('title_for_layout','Треки');
 		
 		// criterias
 		if (isset($this->request->query['source_id']) && is_array($this->request->query['source_id'])) {
@@ -127,8 +127,11 @@ class TracksController extends AppController {
 		if (!$this->Track->exists($id)) {
 			throw new NotFoundException(__('Invalid track'));
 		}
-		$options = array('conditions' => array('Track.' . $this->Track->primaryKey => $id));
-		$this->set('track', $this->Track->find('first', $options));
+		
+		$track = $this->Track->read(null,$id);
+		$this->set('title_for_layout',$track['Track']['artist'] . ' - '. $track['Track']['song']);
+					
+		$this->set('track', $track);
 	}
 
 /**

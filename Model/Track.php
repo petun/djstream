@@ -177,5 +177,12 @@ class Track extends AppModel {
 		
 		return $item['Track']['id'];
 	}
+	
+	public function UpdateCounters() {
+		$genres_sql  = 'UPDATE dj_genres SET tracks_count = (SELECT COUNT(*) FROM dj_tracks where genre_id = dj_genres.id)';
+		$sources_sql = 'UPDATE dj_sources SET tracks_count = (SELECT COUNT(*) FROM dj_tracks where source_id = dj_sources.id)';
+		$this->query($genres_sql);
+		$this->query($sources_sql);
+	}
 
 }

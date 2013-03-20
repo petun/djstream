@@ -4,7 +4,7 @@
     <base href='<?=Router::url('/');?>' />
 	<?php echo $this->Html->charset(); ?>
 	<title>		
-		<?php echo $title_for_layout; ?>
+		<?php echo $title_for_layout; ?> | DjStream
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
@@ -122,7 +122,7 @@
     <div id='footer'>
             <div class='container'>
                 <div class='pull-left'>2013</div>
-                <div class='pull-right'>Petr Marochkin</div>        
+                <div class='pull-right'><a href='http://petrmarochkin.ru/' target='_blank'>Petr Marochkin</a></div>        
             </div>
     </div>        
 	

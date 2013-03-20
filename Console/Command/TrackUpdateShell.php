@@ -53,6 +53,7 @@ class TrackUpdateShell extends AppShell {
                 
                 
                 if ($this->Track->saveAll($result_data)) {
+                    $this->Track->UpdateCounters();
                     echo "Import complite successfully! \n";
                 } else {
                     echo "err while save data";

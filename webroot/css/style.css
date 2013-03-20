@@ -20,6 +20,7 @@ border-radius: 10px;}
 .progress .bar {position: absolute;}
 .progress .bar.loading {background-color: #D5FAFF;
 background-image: -webkit-linear-gradient(top,rgb(229, 246, 255),rgb(255, 163, 0));}
+h2 {font-size: 20px;}
 
 .progress .bar {
     -webkit-transition: none;

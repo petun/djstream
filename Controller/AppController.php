@@ -33,9 +33,8 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
     
-    public $uses = array('Source','Genre');
     
-     public $components = array(
+    public $components = array(
         'Session',
         'Auth' => array(
             'loginRedirect' => '/',
@@ -43,7 +42,7 @@ class AppController extends Controller {
             'authorize' => 'Controller',
             'authError' => '',            
         )
-    );
+    ); 
     
     public function beforeFilter() {
         
@@ -63,8 +62,9 @@ class AppController extends Controller {
         
         // set vars in all pages
         //
-        $sources = $this->Source->find('list');
-        $genres = $this->Genre->find('list');
+        $conditions = array('tracks_count >' => 0);
+        $sources = ClassRegistry::init('Source')->find('list',compact('conditions'));
+        $genres  =  ClassRegistry::init('Genre')->find('list',compact('conditions'));
         
         $this->set(compact('sources','genres'));
     }
