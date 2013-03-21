@@ -13,7 +13,7 @@ class TracksController extends AppController {
  *
  * @return void
  */
-	public function index() {			
+	public function index() {	
 		$conditions = array();
 		$recursive = 0;
 		$limit = 30;		
