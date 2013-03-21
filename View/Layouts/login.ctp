@@ -33,6 +33,13 @@
 <body class='login'>	
 	<div id='login'>    
         <? echo $this->fetch('content'); ?>
+        
+        <p>
+            <? echo $this->element('ya_metrika'); ?>
+        </p>
     </div>
+    
+    
+    
 </body>
 </html>
