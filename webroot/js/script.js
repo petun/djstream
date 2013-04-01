@@ -10,6 +10,10 @@ jQuery(function ($) {
     
     
     var gSound = 'ElectroHouseSound';
+
+    // set volume to default or to cookie
+    setVolume(getVolume());
+    
     
     
     $(document).on("click", "a.play", function(){      
@@ -81,7 +85,7 @@ jQuery(function ($) {
     
     
     /* buttons and positions top player */
-    $('.progress').click(function(e){
+    $('.progress.duration').click(function(e){
       var pos = Math.round(e.offsetX * 100 / $(this).width() );
       
       var s = soundManager.getSoundById(gSound);
@@ -94,6 +98,22 @@ jQuery(function ($) {
          soundManager._writeDebug(pos + 'duration: ' + s.duration + ' cduration '+ cduration);
       }
      
+    });
+
+    $('.progress.volume').click(function(e){
+
+      var pos = Math.round(e.offsetX * 100 / $(this).width() );
+      
+      var s = soundManager.getSoundById(gSound);
+
+      if (s) {
+         setVolume(pos);
+         soundManager.setVolume(gSound,getVolume());
+         soundManager._writeDebug('Adjust volume to '+pos);
+      }
+
+
+
     });
     
     $('#play').click(function(){
@@ -145,6 +165,8 @@ jQuery(function ($) {
          autoPlay: true,
          isMovieStar:true,
          type: 'audio/mpeg',
+         volume: getVolume(),
+
          //type: 'application/octet-stream',
          whileplaying: function() {
           //soundManager._writeDebug('sound '+this.id+' playing, '+this.position+' of '+this.duration);
@@ -229,6 +251,22 @@ jQuery(function ($) {
       dataType : 'json',      
       success: onsuccess
     });
+  }
+
+  function getVolume() {
+    var val = 100;
+    if ($.cookie('dj_volume') != undefined) {
+      val  = parseInt($.cookie('dj_volume'));
+    } else {
+      $.cookie('dj_volume',100,{ expires: 30 });            
+    }
+    return val;
+  }
+
+  function setVolume(vol) {
+    //var vol = getVolume();
+    $('#volume').css('width', vol +  '%');
+    $.cookie('dj_volume',vol,{ expires: 30 });            
   }
 
 

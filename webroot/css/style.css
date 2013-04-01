@@ -16,19 +16,31 @@ border-radius: 10px;}
 .fl-l {float: left;} .fl-r {float: right;}
 .main-wr {padding-top: 82px;}
 .navbar-inverse .navbar-inner {background: #eee; padding: 10px 0;}
-.progress {width: 600px; margin: 0; position: relative; cursor: pointer; height: 5px; /*position: absolute; top: 50px;*/}
-.progress .bar {position: absolute;}
-.progress .bar.loading {background-color: #D5FAFF;
+
+.progress-wrap {overflow: hidden;}
+
+.progress-wrap .progress {cursor: pointer; height: 5px;}
+.progress-wrap .progress.duration {width: 510px; margin: 0 20px 0 0; position: relative;  float: left; }
+.progress-wrap .progress.duration .bar {position: absolute;}
+.progress-wrap .progress.duration .bar.loading {background-color: #D5FAFF;
 background-image: -webkit-linear-gradient(top,rgb(229, 246, 255),rgb(255, 163, 0));}
 h2 {font-size: 20px;}
 
-.progress .bar {
+
+.progress-wrap .progress.volume {float: left; width: 70px;}
+
+
+
+
+.progress-wrap .progress .bar {
     -webkit-transition: none;
     -moz-transition: none;
     -ms-transition: none;
     -o-transition: none;
     transition: none;
 }​
+
+
 
 
 #player .info {float: left; width: 600px; padding: 6px 0 0 0;}

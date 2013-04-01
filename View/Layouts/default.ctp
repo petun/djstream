@@ -13,6 +13,7 @@
 		echo $this->Html->css('style');
         
         echo $this->Html->script('jquery-1.9.1.min');
+        echo $this->Html->script('jquery.cookie');        
         echo $this->Html->script('bootstrap.min');        
         echo $this->Html->script('soundmanager2-jsmin');              
         echo $this->Html->script('script');
@@ -50,9 +51,15 @@
                                     <span class='title fl-l'>Трек не загружен</span>
                                     <span class='duration fl-r'> <span id='time-elapsed'>-:--</span> / <span id='time-total'>-:--</span> </span>
                                 </div>
-                                <div class='progress'>
-                                    <div class="bar loading" id='load-progress'></div>
-                                    <div class="bar" id='progress'></div>                            
+                                <div class='progress-wrap'>
+                                    <div class='progress duration'>
+                                        <div class="bar loading" id='load-progress'></div>
+                                        <div class="bar" id='progress'></div>                            
+                                    </div>
+                                    <div class='volume progress'>
+                                        <div class="bar" id='volume'></div>                                        
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
