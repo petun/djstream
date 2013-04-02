@@ -13,7 +13,8 @@
 		echo $this->Html->css('style');
         
         echo $this->Html->script('jquery-1.9.1.min');
-        echo $this->Html->script('jquery.cookie');        
+        echo $this->Html->script('jquery.cookie');   
+        echo $this->Html->script('modernizr.custom.27312');           
         echo $this->Html->script('bootstrap.min');        
         echo $this->Html->script('soundmanager2-jsmin');              
         echo $this->Html->script('script');
@@ -75,6 +76,7 @@
                 <div class='span6'>
                     <ul class="nav nav-pills">
                       <li><? echo $this->Html->link('О проекте',array('controller'=>'pages','action'=>'display', 'about'));?></li>
+                      <li><? echo $this->Html->link('Плагины',array('controller'=>'pages','action'=>'display', 'plugin'));?></li>
                      <!-- <li><a href="#">Источники</a></li>
                       <li><a href="#">Жанры</a></li> -->
                     </ul>                
