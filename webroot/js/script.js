@@ -13,6 +13,22 @@ jQuery(function ($) {
 
     // set volume to default or to cookie
     setVolume(getVolume());
+
+    // add listener to plugin
+    window.addEventListener("message", function(event) {
+        // We only accept messages from ourselves
+        if (event.source != window)
+          return;
+
+        if (event.data.type && (event.data.type == "FROM_PAGE")) {
+
+          if (event.data.text == "PLAY_NEXT") {
+            playNext();  
+            soundManager._writeDebug("PLAY_NEXT Received from plugin");
+          }
+
+        }
+    }, false);
     
     
     
@@ -70,7 +86,7 @@ jQuery(function ($) {
     }); */
     
     $('#next').click(function(){
-      playNext();
+      playNext();      
       return false;
     });
     
@@ -217,7 +233,7 @@ jQuery(function ($) {
    }
    
    
-   function playNext() {  
+   function playNext() {      
       var c =  $('.track-list li.current').next().find('a.play').attr('rel');
       if (c)   {
         initPlayer(c);        
