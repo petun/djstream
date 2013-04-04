@@ -314,7 +314,7 @@ jQuery(function ($) {
               ,data: sdata
               ,method: 'get'
               ,dataType : 'json'
-              ,cache: true
+              ,cache: false
               ,success: function(r) {                
                   $('ul.scrollable').append(r.html);                
               }

@@ -17,7 +17,7 @@ class TracksController extends AppController {
 		$conditions = array();
 		$recursive = 0;
 		$limit = 30;		
-		$order = array('created'=>'DESC');
+		$order = array('Track.id'=>'DESC');
 		
 		$this->set('title_for_layout','Треки');
 		
@@ -50,7 +50,7 @@ class TracksController extends AppController {
 
 		// from track - for ajax autoload
 		if (isset($this->request->query['from_track'])) {
-			$conditions['Track.id <'] = $this->request->query['from_track'];
+			$conditions['Track.id <'] =  $this->request->query['from_track'];
 		}
 		
 				
