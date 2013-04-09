@@ -74,6 +74,28 @@ class PagesController extends AppController {
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
+
+
+		// fot stat page 
+		if ($page == 'stat') {
+			$stat = array();
+
+			$stat['tracks'] = ClassRegistry::init('Track')->find('count');
+			$stat['users'] = ClassRegistry::init('User')->find('count');
+			$stat['favorites'] = ClassRegistry::init('UserFavorite')->find('count');
+			$stat['listened'] = ClassRegistry::init('TrackListen')->find('count');
+			$stat['listened_today'] = ClassRegistry::init('TrackListen')->find('count',array('conditions'=> 'DATE(TrackListen.created) = DATE(NOW())'));
+
+			$stat['download'] = ClassRegistry::init('TrackDownload')->find('count');
+			$stat['download_today'] = ClassRegistry::init('TrackDownload')->find('count',array('conditions'=> 'DATE(TrackDownload.created) = DATE(NOW())'));
+
+
+			$this->set(compact('stat'));
+
+
+		}
+
+
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 		$this->render(implode('/', $path));
 	}
