@@ -83,6 +83,7 @@ max-width: 470px;}
 .track-list ul li .favorite {display: none;}
 .track-list ul li .download {display: none;}
 .track-list ul li .favorite.already {display: inline;}
+.track-list ul li .favorite.already i.icon-star {background-position: -96px 0;}
 .track-list ul li:hover .favorite,.track-list ul li.current .favorite,
 .track-list ul li:hover .download,.track-list ul li.current .download {display: inline;}
 

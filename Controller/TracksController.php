@@ -30,22 +30,23 @@ class TracksController extends AppController {
 			$conditions['genre_id'] = $this->request->query['genre_id'];
 		}
 
-		// fav criteria
-		$favorites = array();
+		// fav criteria		
 		if (isset($this->request->query['favorite']) && !empty($this->request->query['favorite'])) {
-			if ($this->Auth->user('id')) {
-				$favorites = $this->Track->UserFavorite->findUsers($this->Auth->user('id'));
+			if ($this->Auth->user('id')) {			
 				$conditions['Track.id'] = $favorites;
 			}
 		}
-		$this->set('favorites',$favorites);
+
 		
-		// listened tracks
-		$listened = array();
+		
+		// listened and fav tracks tracks
+		$listened = array(); $favorites = array();
 		if ($this->Auth->user('id')) {
-			$listened = $this->Track->TrackListen->findUsers($this->Auth->user('id'));			
+			$listened = $this->Track->TrackListen->findUsers($this->Auth->user('id'));	
+			$favorites = $this->Track->UserFavorite->findUsers($this->Auth->user('id'));
+			
 		}
-		$this->set(array('listened'=>$listened));
+		$this->set(compact('listened','favorites'));		
 
 
 		// from track - for ajax autoload
