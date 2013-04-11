@@ -20,6 +20,17 @@ class TracksController extends AppController {
 		$order = array('Track.id'=>'DESC');
 		
 		$this->set('title_for_layout','Треки');
+
+		// listened and fav tracks tracks
+		$listened = array(); $favorites = array();
+		if ($this->Auth->user('id')) {
+			$listened = $this->Track->TrackListen->findUsers($this->Auth->user('id'));	
+			$favorites = $this->Track->UserFavorite->findUsers($this->Auth->user('id'));
+			
+		}
+		$this->set(compact('listened','favorites'));
+
+		
 		
 		// criterias
 		if (isset($this->request->query['source_id']) && is_array($this->request->query['source_id'])) {
@@ -39,14 +50,7 @@ class TracksController extends AppController {
 
 		
 		
-		// listened and fav tracks tracks
-		$listened = array(); $favorites = array();
-		if ($this->Auth->user('id')) {
-			$listened = $this->Track->TrackListen->findUsers($this->Auth->user('id'));	
-			$favorites = $this->Track->UserFavorite->findUsers($this->Auth->user('id'));
-			
-		}
-		$this->set(compact('listened','favorites'));		
+				
 
 
 		// from track - for ajax autoload
